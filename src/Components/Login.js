@@ -40,7 +40,6 @@ class Login extends Component{
                         return <option  
                         value={users[`${index}`].id} 
                         key={users[`${index}`].id} 
-                        selected={this.state.authedUser === users[`${index}`].id}
                         >{users[`${index}`].name}</option>
                     })}
                 </select>
