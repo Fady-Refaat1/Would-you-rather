@@ -19,8 +19,7 @@ componentDidMount(){
 }
   render(){ 
     return (
-      <Fragment>
-      <div className="App ">
+      <div className="App">
             <LoadingBar />
             <Router >
             <header className=" d-flex justify-content-center navbar navbar-expand-sm bg-dark p-0 m-0 navbar-dark">
@@ -37,7 +36,6 @@ componentDidMount(){
             </Switch>
         </Router>
       </div>
-      </Fragment>
     );
   }
 }
