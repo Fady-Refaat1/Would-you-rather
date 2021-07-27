@@ -39,7 +39,7 @@ export function questions(state={},action){
                     ...state[qid] , //question
                     [answer]:{ 
                         ...state[qid][answer],
-                        votes : state.qid.answer.votes.filter((user)=>{user === authedUser})
+                        votes : state[qid][answer].votes.filter((user)=>{user === authedUser})
                     }
                 }
             }
