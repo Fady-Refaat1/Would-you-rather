@@ -31,6 +31,7 @@ export function questions(state={},action){
         //       }
         //     }
         //   }
+
         case REMOVE_ANSWER_QUESTION :{
             const {authedUser, qid, answer} = action
             return {
@@ -39,11 +40,13 @@ export function questions(state={},action){
                     ...state[qid] , //question
                     [answer]:{ 
                         ...state[qid][answer],
-                        votes : state[qid][answer].votes.filter((user)=>{user === authedUser})
+                        votes : state[qid][answer].votes.filter((user)=>{return user === authedUser})
                     }
                 }
             }
         }
+
+
         case ADD_QUESTION :
             const {question} = action
             return {
