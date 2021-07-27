@@ -14,8 +14,6 @@ function PrivateRoute({component:Component,authedUser, exact,path}) {
                     state: {from:history.location.pathname},
                     pathname: '/login'
                     }}/>
-                    {console.log('path' ,location.pathname)}
-                    {console.log('props',{history})}
                     </div> 
                 : <Component />
         )}
