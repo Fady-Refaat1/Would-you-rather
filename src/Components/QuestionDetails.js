@@ -7,7 +7,6 @@ import { Button,Row,Col, Card} from 'react-bootstrap';
 class QuestionDetails extends Component{
     state={
         answerOption:'',
-        toHome:false,
     }
 
     handleChange=(event)=>{
@@ -21,10 +20,7 @@ class QuestionDetails extends Component{
         const qid = id
         this.state.answerOption !== ''&&
         dispatch(handleAnswerQuestion({authedUser, qid, answer}))
-        this.setState(()=>({
-            toHome:true
-        }))
-        
+        this.props.history.push(`/questions/${id}`)
     }
 
     render(){
@@ -38,11 +34,6 @@ class QuestionDetails extends Component{
 
         const numOfOption1Votes = question.optionOne.votes.length
         const numOfOption2Votes = question.optionTwo.votes.length
-        
-        const {toHome} = this.state
-        if(toHome){
-            return <Redirect to='/' />
-        }
         return(
                 <div  >
                     <ul>
