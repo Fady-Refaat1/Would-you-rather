@@ -14,7 +14,11 @@ The user can:
 -logout
 
 
-# instruction to run
+# instruction to install
+1. clone the project
+2. install npm
 
-1. install npm
-2. npm start
+
+# instruction to run
+in the terminal run
+ npm start
