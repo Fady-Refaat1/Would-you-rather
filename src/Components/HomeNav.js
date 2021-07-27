@@ -3,9 +3,8 @@ import { connect } from 'react-redux'
 import { Nav} from 'react-bootstrap';
 import { LinkContainer} from 'react-router-bootstrap'
 import loginPhoto from '../utils/loginPhoto.png'
-class HomeNav extends React.Component{
-    render (){
-        const {authedUser,users} =this.props
+const HomeNav = (props) => {
+        const {authedUser,users} =props
         return (
             <div>
             {authedUser === null
@@ -58,7 +57,6 @@ class HomeNav extends React.Component{
         )
     
     }
-}
 
 function mapStateToProps ({ users,authedUser }) {
     return {

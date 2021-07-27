@@ -1,10 +1,9 @@
-import React,{Component} from 'react'
+import React from 'react'
 import { connect } from 'react-redux';
 import UserCard from './UserCard';
 
-class LeaderBoard extends Component{
-    render(){
-        const { rankedUsers } = this.props
+const LeaderBoard = (props) => {
+        const { rankedUsers } = props
         return(
             <div>
                 <h3 className='mt-3'>The leaderboard</h3>
@@ -25,7 +24,6 @@ class LeaderBoard extends Component{
                 </ul>
             </div>
         );
-    }
 }
 
 

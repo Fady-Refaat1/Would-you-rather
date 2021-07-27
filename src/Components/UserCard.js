@@ -12,7 +12,6 @@ class UserCard extends Component{
                 createdQuestions,
             }
     }
-
     render(){
         const {users,id,score,answeredQuestions,createdQuestions,rank}=this.props
         return(
