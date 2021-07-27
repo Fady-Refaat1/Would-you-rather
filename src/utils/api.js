@@ -3,7 +3,7 @@ import {
     _getQuestions,
     _saveQuestion,
     _saveQuestionAnswer,
-    } from './_DATA.js'
+    } from './_Data'
     
     export function getInitialData () {
         return Promise.all([
@@ -19,6 +19,6 @@ import {
         return _saveQuestion(question)
     }
     
-    export function saveQuestionAnswer (answer) {
-        return _saveQuestionAnswer(answer)
+    export function saveQuestionAnswer (info) {
+        return _saveQuestionAnswer(info)
     }

@@ -21,3 +21,11 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+/src/Components/UnAnswerdQuestion.js
+/src/Components/UnAnswerdQuestions.js
+/src/Components/AnswerdQuestion.js
+/src/Components/AnswerdQuestions.js
+
+
+.ins.md 

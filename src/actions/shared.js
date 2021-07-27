@@ -3,9 +3,8 @@ import { receiveQuestions } from "./questions"
 import { receiveUsers } from "./users"
 import { hideLoading, showLoading } from "react-redux-loading";
 import { getInitialData } from "../utils/api";
-
-
-export function handleIntilData (AUTHED_ID){
+const AUTHED_ID = null
+export function handleIntilData (){
     return (dispatch) =>{
         dispatch(showLoading())
         getInitialData()
