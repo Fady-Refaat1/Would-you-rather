@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import { connect } from 'react-redux';
 import {Row,Col, Card} from 'react-bootstrap';
+import PropTypes from 'prop-types';
 class UserCard extends Component{
     calScore =(id)=>{
         const {users} =this.props
@@ -63,4 +64,13 @@ function mapStateToProps ({users},{id,score,answeredQuestions,createdQuestions,r
         rank
     }
 }
+UserCard.propTypes = {
+    id : PropTypes.string.isRequired,
+    score : PropTypes.number.isRequired,
+    users: PropTypes.object.isRequired,
+    answeredQuestions: PropTypes.number.isRequired,
+    createdQuestions : PropTypes.number.isRequired,
+    rank :PropTypes.number
+  };
+
 export default connect(mapStateToProps)(UserCard)

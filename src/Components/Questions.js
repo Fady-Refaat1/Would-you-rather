@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {Button,Row,Col, Card} from 'react-bootstrap';
+import PropTypes from 'prop-types';
 class Questions extends Component{
 
     questionDetails = (e, id) => {
@@ -78,14 +79,20 @@ class Questions extends Component{
     }
 }
 
-function mapStateToProps ({ users, questions, authedUser },{display}) {
+function mapStateToProps ({ users, questions, authedUser },{view}) {
     return {
         users,
         questionsIds : Object.keys(questions).sort((a,b) => questions[b].timestamp - questions[a].timestamp),
         questions,
         authedUser,
-        display,
+        view,
     }
 }
+Questions.propTypes = {
+    authedUser : PropTypes.string.isRequired,
+    users: PropTypes.object.isRequired,
+    questions: PropTypes.object.isRequired,
+    view :PropTypes.string.isRequired
+  };
 
 export default withRouter(connect(mapStateToProps)(Questions ))

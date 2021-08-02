@@ -1,9 +1,11 @@
 import React,{Component} from 'react'
 import { Button, Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 import { setAuthedUser } from '../actions/authedUser';
 import loginPhoto from '../utils/loginPhoto.png'
+
 class Login extends Component{   
     state={
             authedUser : '',
@@ -16,10 +18,10 @@ class Login extends Component{
     }
     handleSubmit=(event)=>{
         event.preventDefault()
-        const {dispatch} = this.props
+        const {setAuthedUser} = this.props
         const {authedUser} =this.state
         authedUser !== null
-        && dispatch(setAuthedUser(authedUser)) 
+        && setAuthedUser(authedUser)
         this.setState(()=>({
             toHome:true
         }))
@@ -27,7 +29,7 @@ class Login extends Component{
     render(){
         const {users} = this.props
         const {toHome , next} = this.state
-        console.log( this.props)
+        console.log( this.props.location)
         if (toHome) {
             return <Redirect to={next.from}/>
         }
@@ -51,11 +53,31 @@ class Login extends Component{
         );
     }
 }
-function mapStateToProps ({ users },{location}) {
+
+
+const mapStateToProps =  ({ users },{location})=> {
     return {
         users,
         location
     }
 }
+const mapDispatchToProps = (dispatch) => {
+        return {
+        setAuthedUser : (id)=>{
+            dispatch(setAuthedUser(id))
+        }
+    }
+    }
+// const mapDispatchToProps = ({
+//     setAuthedUser 
+//     })
+    
 
-export default connect(mapStateToProps)(Login)
+Login.propTypes = {
+    users: PropTypes.object.isRequired,
+    location : PropTypes.object.isRequired,
+    setAuthedUser: PropTypes.func.isRequired
+  };
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login)

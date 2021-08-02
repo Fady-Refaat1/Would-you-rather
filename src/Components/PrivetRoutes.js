@@ -1,6 +1,7 @@
 import  React from  "react";
 import { connect } from "react-redux";
 import { Route, Redirect} from  "react-router-dom";
+import PropTypes from 'prop-types';
 
 function PrivateRoute({component:Component,authedUser, exact,path}) {
     const condition  =  authedUser === null
@@ -26,4 +27,9 @@ function mapStateToProps ({ authedUser }) {
         authedUser,
     }
 }
+
+PrivateRoute.propTypes = {
+    authedUser : PropTypes.string
+  };
+
 export  default connect(mapStateToProps)(PrivateRoute)

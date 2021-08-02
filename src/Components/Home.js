@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import { connect } from 'react-redux';
 import Questions from './Questions';
+import PropTypes from 'prop-types';
 import {Button ,Container} from 'react-bootstrap';
 class Home extends Component{
     state={
@@ -37,4 +38,8 @@ function mapStateToProps ({authedUser }) {
         authedUser,
     }
 }
+Home.propTypes = {
+    authedUser: PropTypes.string.isRequired
+  };
+
 export default connect(mapStateToProps)(Home)

@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import UserCard from './UserCard';
+import PropTypes from 'prop-types';
 
 const LeaderBoard = (props) => {
         const { rankedUsers } = props
@@ -43,4 +44,7 @@ function mapStateToProps ({users}) {
         rankedUsers : usersScore.sort((a, b) =>b.score - a.score)
     }
 }
+LeaderBoard.propTypes = {
+    rankedUsers: PropTypes.array.isRequired
+  };
 export default connect(mapStateToProps)(LeaderBoard)

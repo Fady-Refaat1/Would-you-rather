@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Nav} from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import { LinkContainer} from 'react-router-bootstrap'
 import loginPhoto from '../utils/loginPhoto.png'
 const HomeNav = (props) => {
@@ -64,5 +65,10 @@ function mapStateToProps ({ users,authedUser }) {
         authedUser
     }
 }
+HomeNav.propTypes = {
+    users: PropTypes.object.isRequired,
+    authedUser : PropTypes.string
+  };
+
 
 export default connect(mapStateToProps)(HomeNav)

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';
 import { handleAnswerQuestion } from '../actions/questions';
 import { Button,Row,Col, Card} from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 class QuestionDetails extends Component{
     state={
@@ -35,7 +36,7 @@ class QuestionDetails extends Component{
         const numOfOption1Votes = question.optionOne.votes.length
         const numOfOption2Votes = question.optionTwo.votes.length
         return(
-                <div  >
+                <div>
                     <ul>
                     { isAnswerd
                 ? 
@@ -134,4 +135,11 @@ function mapStateToProps ({authedUser, users, questions},props) {
         question : question ? question : 'notFound' ,
     }
 }
+
+QuestionDetails.propTypes = {
+    authedUser : PropTypes.string.isRequired,
+    users: PropTypes.object.isRequired
+  };
+
+
 export default withRouter(connect(mapStateToProps)(QuestionDetails))
