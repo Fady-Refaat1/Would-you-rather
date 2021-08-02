@@ -1,46 +1,39 @@
-import React ,{Component} from 'react'
+import React ,{useState} from 'react'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { handleAddQuestion } from '../actions/questions';
 import serializeForm from 'form-serialize'
 import { Form ,Button} from 'react-bootstrap';
 
-class NewQuestion extends Component{
-    state={
-        optionOne:'',
-        optionTwo:'',
-        toHome: false,
-    }
-    handleOptionOneChange=(event)=>{
+const NewQuestion = (props) => {
+    
+    const [optionOne,setOptionOne] = useState('')
+    const [optionTwo,setOptionTwo] = useState('')
+    const [toHome,setToHome] = useState(false)
+
+    const handleOptionOneChange=(event)=>{
         const option = event.target.value
-        this.setState(()=>({
-            optionOne : option
-        }))
+        setOptionOne(option)
+    
     }
-    handleOptionTwoChange=(event)=>{
+    const handleOptionTwoChange=(event)=>{
         const option = event.target.value
-        this.setState(()=>({
-            optionTwo : option
-        }))
+        setOptionTwo(option)
     }
-    handleAddQuestion =(event)=>{
-        event.preventDefault()
-        const {dispatch} = this.props
+    const handleAddQuestio =(event)=>{
+        event.preventDefault();
         const values = serializeForm(event.target,{hash:true}) // we can do this by state it just for variety
-        dispatch(handleAddQuestion (values.optionOne,values.optionTwo))
-        this.setState(()=>({
-            toHome : true
-        }))
+        props.handleAddQuestion(values.optionOne,values.optionTwo)
+        setToHome(true)
     }
 
-    render(){
-        const {optionOne ,optionTwo,toHome} =this.state
         if(toHome === true){
             return <Redirect to='/'/>
         }
+
         return (
             <div>
-            <Form className='w-50  bg-light mx-auto rounded-3 border  shadow p-3  m-3 ' onSubmit={this.handleAddQuestion}>
+            <Form className='w-50  bg-light mx-auto rounded-3 border  shadow p-3  m-3 ' onSubmit={handleAddQuestio}>
             <Form.Label className='h3'>Create New Question</Form.Label>
             <br/>
             <Form.Label
@@ -52,7 +45,7 @@ class NewQuestion extends Component{
                     name='optionOne'
                     value={optionOne}
                     placeholder='Enter option one text here'
-                    onChange={this.handleOptionOneChange} />
+                    onChange={handleOptionOneChange} />
             </Form.Group>
             <Form.Label
             className='text-muted mx-auto '
@@ -63,17 +56,24 @@ class NewQuestion extends Component{
                     name='optionTwo'
                     value={optionTwo}
                     placeholder='Enter option Two text here'
-                    onChange={this.handleOptionTwoChange} />
+                    onChange={handleOptionTwoChange} />
             </Form.Group>
             <Button  
             type='submit'
-            disabled={this.state.optionOne === '' || this.state.optionTwo === ''}>
+            disabled={optionOne === '' || optionTwo === ''}>
                 Add Poll
             </Button>
     </Form>
             </div>
         );
+    
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleAddQuestion : (optionOne,optionTwo)=>{
+        dispatch(handleAddQuestion(optionOne,optionTwo))
     }
+  }
 }
 
-export default connect()(NewQuestion)
+export default connect(null,mapDispatchToProps)(NewQuestion)

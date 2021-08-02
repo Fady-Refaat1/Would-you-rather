@@ -1,31 +1,31 @@
-import React,{Component} from 'react'
+import React,{useState} from 'react'
 import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';
 import { handleAnswerQuestion } from '../actions/questions';
 import { Button,Row,Col, Card} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-class QuestionDetails extends Component{
-    state={
-        answerOption:'',
+const QuestionDetails = (props)=>{
+
+    const [answerOption,setAnswerOption] = useState('')
+
+    const {users,authedUser,question,handleAnswerQuestion} = props 
+
+    const handleChange=(event)=>{
+        setAnswerOption((event.target.value))
     }
 
-    handleChange=(event)=>{
-        this.setState({answerOption: event.target.value})
-    }
-
-    handleSubmit=(event,id)=>{
+    const handleSubmit=(event,id)=>{
         event.preventDefault()
-        const answer = this.state.answerOption
-        const {authedUser,dispatch} = this.props
+        const answer = answerOption
+        const {authedUser} = props
         const qid = id
-        this.state.answerOption !== ''&&
-        dispatch(handleAnswerQuestion({authedUser, qid, answer}))
-        this.props.history.push(`/questions/${id}`)
+        answerOption !== ''&&
+        handleAnswerQuestion({authedUser, qid, answer})
+        props.history.push(`/questions/${id}`)
     }
 
-    render(){
-        const {users,authedUser,question} = this.props 
+        
 
         if(question === 'notFound'){
             return <Redirect to='/notFound' />
@@ -92,8 +92,8 @@ class QuestionDetails extends Component{
                                                                 type="radio" 
                                                                 value="optionOne" 
                                                                 name="answer" 
-                                                                checked={this.state.answerOption === "optionOne"}
-                                                                onChange={this.handleChange}
+                                                                checked={answerOption === "optionOne"}
+                                                                onChange={handleChange}
                                                                 />{question.optionOne.text}
                                                 </Row>
                                                 <Row className=' form-check'>
@@ -102,15 +102,15 @@ class QuestionDetails extends Component{
                                                                 type="radio" 
                                                                 value="optionTwo" 
                                                                 name="answer" 
-                                                                checked={this.state.answerOption === "optionTwo"}
-                                                                onChange={this.handleChange}
+                                                                checked={answerOption === "optionTwo"}
+                                                                onChange={handleChange}
                                                                 />{question.optionTwo.text}
                                                 </Row>
                                                 <Row>
                                                 <Button
                                                     className='mx-auto w-50 '
-                                                    onClick={(e)=>this.handleSubmit(e,question.id)} 
-                                                    disabled={this.state.answerOption === ''}
+                                                    onClick={(e)=>handleSubmit(e,question.id)} 
+                                                    disabled={answerOption === ''}
                                                     >
                                                     submit
                                                     </Button>
@@ -125,7 +125,7 @@ class QuestionDetails extends Component{
                 </div>
         );
     }
-}
+
 function mapStateToProps ({authedUser, users, questions},props) {
     const {id} = props.match.params
     const question = questions[id]
@@ -135,6 +135,13 @@ function mapStateToProps ({authedUser, users, questions},props) {
         question : question ? question : 'notFound' ,
     }
 }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleAnswerQuestion : ({authedUser, qid, answer})=>{
+            dispatch(handleAnswerQuestion({authedUser, qid, answer}))
+    }
+  }
+}
 
 QuestionDetails.propTypes = {
     authedUser : PropTypes.string.isRequired,
@@ -142,4 +149,4 @@ QuestionDetails.propTypes = {
   };
 
 
-export default withRouter(connect(mapStateToProps)(QuestionDetails))
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(QuestionDetails))

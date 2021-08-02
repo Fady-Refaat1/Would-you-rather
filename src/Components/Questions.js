@@ -1,17 +1,16 @@
-import React,{Component} from 'react'
+import React from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {Button,Row,Col, Card} from 'react-bootstrap';
 import PropTypes from 'prop-types';
-class Questions extends Component{
+const Questions = (props) => {
 
-    questionDetails = (e, id) => {
-        e.preventDefault()
-        this.props.history.push(`/questions/${id}`)
+    const questionDetails = (event, id) => {
+        event.preventDefault()
+        props.history.push(`/questions/${id}`)
         }
 
-    render(){
-        const {questions,users,authedUser,questionsIds,view} = this.props
+        const {questions,users,authedUser,questionsIds,view} = props
         const answerQuestions =[]
         const unAnswerQuestions =[]
         questionsIds.map((index)=>{
@@ -61,7 +60,7 @@ class Questions extends Component{
                                                     <br/>
                                                     <Button
                                                     className='mx-auto'
-                                                    onClick={(e)=>{this.questionDetails(e,index)}}
+                                                    onClick={(e)=>{questionDetails(e,index)}}
                                                     >
                                                     view poll
                                                     </Button>
@@ -77,7 +76,6 @@ class Questions extends Component{
             </div>      
         );
     }
-}
 
 function mapStateToProps ({ users, questions, authedUser },{view}) {
     return {

@@ -1,4 +1,4 @@
-import React, { Component,Fragment } from 'react'
+import React, {useEffect} from 'react'
 import { BrowserRouter as Router,Switch,Route } from 'react-router-dom'
 import { connect } from 'react-redux';
 import  LoadingBar  from 'react-redux-loading';
@@ -13,11 +13,12 @@ import PrivateRoute from './PrivetRoutes';
 import Page404 from './Page404';
 import QuestionDetails from './QuestionDetails';
 import 'bootstrap/dist/css/bootstrap.min.css';
-class App extends Component{
-componentDidMount(){
-    this.props.dispatch(handleIntilData())
-}
-  render(){ 
+const  App = (props) => {
+
+  useEffect(()=>{
+    props.handleIntilData()
+  },[]) // = componentDidMount
+
     return (
       <div className="App">
             <LoadingBar />
@@ -38,5 +39,11 @@ componentDidMount(){
       </div>
     );
   }
+const mapDispatchToProps = (dispatch) => {
+    return {
+      handleIntilData : ()=>{
+        dispatch(handleIntilData())
+    }
+  }
 }
-export default connect()(App)
+export default connect(null,mapDispatchToProps)(App)

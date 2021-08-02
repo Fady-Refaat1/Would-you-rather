@@ -1,4 +1,4 @@
-import React,{Component} from 'react'
+import React,{useState} from 'react'
 import { Button, Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -6,37 +6,29 @@ import {Redirect} from 'react-router-dom';
 import { setAuthedUser } from '../actions/authedUser';
 import loginPhoto from '../utils/loginPhoto.png'
 
-class Login extends Component{   
-    state={
-            authedUser : '',
-            toHome : false,
-            next: this.props.history.location.state || {from: {pathname: '/'}},
-        }
+const Login = (props) => {  
+    const [authedUser , setAuthedUserState] = useState('')
+    const [toHome , setToHome] = useState(false)
 
-    handelChange=(event)=>{
-        this.setState({authedUser: event.target.value})
+    const {users ,setAuthedUser} = props
+    const handelChange=(event)=>{
+        setAuthedUserState(event.target.value)
     }
-    handleSubmit=(event)=>{
+    const handleSubmit=(event)=>{
         event.preventDefault()
-        const {setAuthedUser} = this.props
-        const {authedUser} =this.state
         authedUser !== null
         && setAuthedUser(authedUser)
-        this.setState(()=>({
-            toHome:true
-        }))
+        setToHome(true)
     }
-    render(){
-        const {users} = this.props
-        const {toHome , next} = this.state
-        console.log( this.props.location)
+
+
         if (toHome) {
-            return <Redirect to={next.from}/>
+            return <Redirect to={(props.history.location.state || {from: {pathname: '/'}}).from}/>
         }
         return(
             <Container>
                 <img src={loginPhoto} className='w-25 m-2' />
-                <select className='form-select w-25 mx-auto m-2 border' value={this.state.authedUser} onChange={this.handelChange}>
+                <select className='form-select w-25 mx-auto m-2 border' value={authedUser} onChange={handelChange}>
                     <option value='' disabled>Login as...</option>
                     {Object.keys(users).map((index)=>{
                         return <option  
@@ -46,13 +38,12 @@ class Login extends Component{
                     })}
                 </select>
                 <br />
-                <Button className='mx-auto' onClick={this.handleSubmit} disabled={this.state.authedUser === ''}>
+                <Button className='mx-auto' onClick={handleSubmit} disabled={authedUser === ''}>
                     LOGIN 
                 </Button>
             </Container>
         );
     }
-}
 
 
 const mapStateToProps =  ({ users },{location})=> {
