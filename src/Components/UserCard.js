@@ -2,19 +2,8 @@ import React,{Component} from 'react'
 import { connect } from 'react-redux';
 import {Row,Col, Card} from 'react-bootstrap';
 import PropTypes from 'prop-types';
-class UserCard extends Component{
-    calScore =(id)=>{
-        const {users} =this.props
-            const answeredQuestions = Object.keys(users[id].answers).length
-            const createdQuestions = users[id].questions.length
-            return{
-                score:answeredQuestions+createdQuestions,
-                answeredQuestions,
-                createdQuestions,
-            }
-    }
-    render(){
-        const {users,id,score,answeredQuestions,createdQuestions,rank}=this.props
+const UserCard = (props)=>{
+        const {users,id,score,answeredQuestions,createdQuestions,rank}=props
         return(
             <Card key={id} className='w-50  bg-light mx-auto rounded-3 border  shadow p-3 m-5  ' style={{color:'black' }}>
                     <Row >
@@ -51,7 +40,6 @@ class UserCard extends Component{
             </Card>
         );
     }
-}
 
 
 function mapStateToProps ({users},{id,score,answeredQuestions,createdQuestions,rank}) {

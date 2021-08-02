@@ -35,7 +35,7 @@ export function users (state={},action){
         //     }
         //   }
         case REMOVE_ANSWER_QUESTION :{
-            const {authedUser, qid, answer} = action
+            const {authedUser, qid} = action
             return  {
                 ...state,
                 [authedUser] :{
