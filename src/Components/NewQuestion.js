@@ -20,20 +20,19 @@ const NewQuestion = (props) => {
         const option = event.target.value
         setOptionTwo(option)
     }
-    const handleAddQuestio =(event)=>{
+    const handleAddQuestionForm =(event)=>{
         event.preventDefault();
         const values = serializeForm(event.target,{hash:true}) // we can do this by state it just for variety
         props.handleAddQuestion(values.optionOne,values.optionTwo)
         setToHome(true)
     }
-
         if(toHome === true){
             return <Redirect to='/'/>
         }
 
         return (
             <div>
-            <Form className='w-50  bg-light mx-auto rounded-3 border  shadow p-3  m-3 ' onSubmit={handleAddQuestio}>
+            <Form className='w-50  bg-light mx-auto rounded-3 border  shadow p-3  m-3 ' onSubmit={handleAddQuestionForm}>
             <Form.Label className='h3'>Create New Question</Form.Label>
             <br/>
             <Form.Label
